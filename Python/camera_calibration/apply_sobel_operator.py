@@ -20,7 +20,13 @@ def abs_sobel_thresh(img, orient='x', thresh_min=0, thresh_max=255):
     # 5) Create a mask of 1's where the scaled gradient magnitude
     # is > thresh_min and < thresh_max
     # 6) Return this mask as your binary_output image
-    binary_output = np.copy(img)  # Remove this line
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    orientation = orient == 'x'
+
+    sobel_derivative = cv2.Sobel(gray, cv2.CV_64F, orientation, not orientation)
+    abs_sobel = np.abs(sobel_derivative)
+    scaled_sobel = np.uint8(255 * abs_sobel / np.max(abs_sobel))
+    binary_output = (scaled_sobel > thresh_min) & (scaled_sobel < thresh_max)
     return binary_output
 
 
