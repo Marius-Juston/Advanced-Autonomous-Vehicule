@@ -22,7 +22,7 @@ def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     sobel_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
     sobel_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
-    magnitude = np.sqrt(sobel_x ** 2, sobel_y ** 2)
+    magnitude = np.sqrt(sobel_x ** 2 + sobel_y ** 2)
     magnitude = np.uint8(255 * magnitude / np.max(magnitude))
 
     binary_output = (magnitude > mag_thresh[0]) & (magnitude < mag_thresh[1])
