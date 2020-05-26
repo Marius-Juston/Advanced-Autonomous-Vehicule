@@ -54,7 +54,6 @@ if __name__ == '__main__':
     window_title = 'Perspective Transform'
 
     cv2.imshow(window_title, image)
-    # cv2.resizeWindow(window_title, 500, 500)
     cv2.setMouseCallback(window_title, mouse_press, param={'image': image})
 
     cv2.waitKey()
