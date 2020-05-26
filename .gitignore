@@ -8,3 +8,5 @@
 
 # Generated files
 .idea/**/contentModel.xml
+
+*.pyc
