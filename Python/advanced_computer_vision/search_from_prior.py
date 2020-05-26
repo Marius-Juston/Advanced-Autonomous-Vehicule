@@ -34,12 +34,11 @@ def search_around_poly(binary_warped):
     nonzeroy = np.array(nonzero[0])
     nonzerox = np.array(nonzero[1])
 
-    ### TO-DO: Set the area of search based on activated x-values ###
-    ### within the +/- margin of our polynomial function ###
-    ### Hint: consider the window areas for the similarly named variables ###
-    ### in the previous quiz, but change the windows to our new search area ###
-    left_lane_inds = None
-    right_lane_inds = None
+    left_x = (left_fit[0] * (nonzeroy ** 2) + left_fit[1] * nonzeroy + left_fit[2])
+    right_x = (right_fit[0] * (nonzeroy ** 2) + right_fit[1] * nonzeroy + right_fit[2])
+
+    left_lane_inds = ((nonzerox > (left_x - margin)) & (nonzerox < (left_x + margin)))
+    right_lane_inds = ((nonzerox > (right_x - margin)) & (nonzerox < (right_x + margin)))
 
     # Again, extract left and right line pixel positions
     leftx = nonzerox[left_lane_inds]
