@@ -8,14 +8,14 @@ params = {
     'k_size_y': 3,
     'k_size_mag': 3,
     'k_size_dir': 15,
-    'min_x': 0,
-    'min_y': 0,
-    'min_mag': 0,
-    'min_dir': 0,
-    'max_x': 0,
-    'max_y': 0,
-    'max_mag': 0,
-    'max_dir': 0
+    'min_x': 20,
+    'min_y': 30,
+    'min_mag': 30,
+    'min_dir': 50,
+    'max_x': 100,
+    'max_y': 75,
+    'max_mag': 100,
+    'max_dir': 80
 }
 
 angle_resolution = 100
