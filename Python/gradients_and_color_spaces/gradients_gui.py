@@ -5,18 +5,18 @@ from gradients_and_color_spaces.combined_gradient_filter import convert_to_image
     dir_threshold, combine
 
 params = {
-    'k_size_x': 3,
-    'k_size_y': 3,
-    'k_size_mag': 3,
-    'k_size_dir': 15,
-    'min_x': 20,
-    'min_y': 30,
-    'min_mag': 30,
-    'min_dir': np.pi / 4,
-    'max_x': 100,
-    'max_y': 75,
-    'max_mag': 100,
-    'max_dir': np.pi / 2.5
+    'k_size_x': 7,
+    'k_size_y': 7,
+    'k_size_mag': 9,
+    'k_size_dir': 17,
+    'min_x': 31,
+    'min_y': 37,
+    'min_mag': 42,
+    'min_dir': np.pi / 2 * 42 / 100,
+    'max_x': 102,
+    'max_y': 116,
+    'max_mag': 109,
+    'max_dir': np.pi / 2 * 81 / 100
 }
 
 angle_resolution = 100
