@@ -11,7 +11,7 @@ def abs_sobel_thresh(img, orient='x', sobel_kernel=3, thresh=(0, 255)):
     sobel = np.abs(sobel)
     sobel = np.uint8(255 * sobel / sobel.max())
 
-    return ((sobel >= thresh[0]) & (sobel <= thresh[1]))
+    return (sobel >= thresh[0]) & (sobel <= thresh[1])
 
 
 def mag_thresh(image, sobel_kernel=3, mag_thresh=(0, 255)):
