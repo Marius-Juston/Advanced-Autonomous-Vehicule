@@ -17,7 +17,13 @@ def abs_sobel_thresh(img, orient='x', sobel_kernel=3, thresh=(0, 255)):
 def mag_thresh(image, sobel_kernel=3, mag_thresh=(0, 255)):
     # Calculate gradient magnitude
     # Apply threshold
-    return mag_binary
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    sobel_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
+    sobel_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
+    mag = np.sqrt(sobel_x ** 2 + sobel_y ** 2)
+    mag = np.uint8(255 * mag / mag.max())
+
+    return (mag >= mag_thresh[0]) & (mag <= mag_thresh[1])
 
 
 def dir_threshold(image, sobel_kernel=3, thresh=(0, np.pi / 2)):
