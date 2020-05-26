@@ -1,3 +1,4 @@
+import cv2
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,7 +18,14 @@ def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
     # 4) Scale to 8-bit (0 - 255) and convert to type = np.uint8
     # 5) Create a binary mask where mag thresholds are met
     # 6) Return this mask as your binary_output image
-    binary_output = np.copy(img)  # Remove this line
+
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    sobel_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
+    sobel_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
+    magnitude = np.sqrt(sobel_x ** 2, sobel_y ** 2)
+    magnitude = np.uint8(255 * magnitude / np.max(magnitude))
+
+    binary_output = (magnitude > mag_thresh[0]) & (magnitude < mag_thresh[1])
     return binary_output
 
 
