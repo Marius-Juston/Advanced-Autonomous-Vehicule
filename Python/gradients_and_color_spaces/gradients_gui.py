@@ -109,7 +109,7 @@ if __name__ == '__main__':
     settings_windows = 'Settings'
 
     cv2.namedWindow(settings_windows)
-    # cv2.resizeWindow(settings_windows, ())
+    cv2.resizeWindow(settings_windows, 280, 510)
     create_kernel_track_bar(settings_windows, "Kernel X", 'k_size_x')
     create_kernel_track_bar(settings_windows, "Kernel Y", 'k_size_y')
     create_kernel_track_bar(settings_windows, "Kernel Mag", 'k_size_mag')
