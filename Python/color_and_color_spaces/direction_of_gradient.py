@@ -1,7 +1,7 @@
-import numpy as np
 import cv2
-import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Read in an image
 image = mpimg.imread('signs_vehicles_xygrad.png')
@@ -18,7 +18,17 @@ def dir_threshold(img, sobel_kernel=3, thresh=(0, np.pi / 2)):
     # 4) Use np.arctan2(abs_sobely, abs_sobelx) to calculate the direction of the gradient
     # 5) Create a binary mask where direction thresholds are met
     # 6) Return this mask as your binary_output image
-    binary_output = np.copy(img)  # Remove this line
+
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    sobel_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
+    sobel_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
+
+    abs_sobel_x = np.abs(sobel_x)
+    abs_sobel_y = np.abs(sobel_y)
+
+    direction = np.arctan2(abs_sobel_y, abs_sobel_x)
+
+    binary_output = (direction > thresh[0]) & (direction < thresh[1])
     return binary_output
 
 
@@ -32,3 +42,4 @@ ax1.set_title('Original Image', fontsize=50)
 ax2.imshow(dir_binary, cmap='gray')
 ax2.set_title('Thresholded Grad. Dir.', fontsize=50)
 plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+plt.show()
