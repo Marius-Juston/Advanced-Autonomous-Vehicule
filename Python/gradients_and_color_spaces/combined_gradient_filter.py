@@ -56,11 +56,13 @@ gradx = abs_sobel_thresh(image, orient='x', sobel_kernel=ksize, thresh=(20, 100)
 grady = abs_sobel_thresh(image, orient='y', sobel_kernel=ksize, thresh=(30, 75))
 mag_binary = mag_thresh(image, sobel_kernel=ksize, mag_thresh=(30, 100))
 dir_binary = dir_threshold(image, sobel_kernel=ksize, thresh=(np.pi / 4, np.pi / 2.5))
+combined_binary = combine(gradx, grady, mag_binary, dir_binary)
 
 cv2.imshow('Gradx', convert_to_image(gradx))
 cv2.imshow('Grady', convert_to_image(grady))
 cv2.imshow('Magnitude', convert_to_image(mag_binary))
 cv2.imshow('Direction', convert_to_image(dir_binary))
+cv2.imshow('Combined', convert_to_image(combined_binary))
 
 cv2.waitKey()
 cv2.destroyAllWindows()
