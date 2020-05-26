@@ -65,14 +65,20 @@ def update_all():
     cv2.imshow('Combined', convert_to_image(combined_binary))
 
 
+def create_kernel_track_bar(window_name, trackbar_name, kernel_name):
+    cv2.createTrackbar(trackbar_name, window_name, odd_to_number(params[kernel_name]), 15, new_kernel(kernel_name))
+
+
 if __name__ == '__main__':
     image = cv2.imread('signs_vehicles_xygrad.png')
 
     settings_windows = 'Settings'
 
     cv2.namedWindow(settings_windows)
-    cv2.createTrackbar("Kernel Sobel X", settings_windows, odd_to_number(params['k_size_x']), 15,
-                       new_kernel('k_size_x'))
+    create_kernel_track_bar(settings_windows, "Kernel X", 'k_size_x')
+    create_kernel_track_bar(settings_windows, "Kernel Y", 'k_size_y')
+    create_kernel_track_bar(settings_windows, "Kernel Mag", 'k_size_mag')
+    create_kernel_track_bar(settings_windows, "Kernel Dir", 'k_size_dir')
 
     update_all()
 
