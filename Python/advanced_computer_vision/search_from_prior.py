@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load our image - this should be a new frame since last time!
-binary_warped = mpimg.imread('warped_example.jpg')
+binary_warped = mpimg.imread('warped-example.jpg')
 
 # Polynomial fit values from the previous frame
 # Make sure to grab the actual values from the previous step in your project!
