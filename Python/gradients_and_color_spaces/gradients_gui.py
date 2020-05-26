@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import cv2
 import numpy as np
 
@@ -55,6 +57,8 @@ def new_dir_threshold(threshold_name):
 
 
 def update_all():
+    pprint(params)
+
     gradx = abs_sobel_thresh(image,
                              orient='x',
                              sobel_kernel=params['k_size_x'],
