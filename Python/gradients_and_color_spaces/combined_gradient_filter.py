@@ -44,6 +44,7 @@ def combine(gradx, grady, magnitude, direction):
 def convert_to_image(mask):
     return mask.astype(np.uint8) * 255.
 
+
 if __name__ == '__main__':
     # Read in an image and grayscale it
     image = cv2.imread('signs_vehicles_xygrad.png')
