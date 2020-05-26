@@ -1,9 +1,10 @@
 import cv2
+import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Read in an image and grayscale it
-image = cv2.imread('signs_vehicles_xygrad.png')
+image = mpimg.imread('signs_vehicles_xygrad.png')
 
 
 # Define a function that applies Sobel x or y,
