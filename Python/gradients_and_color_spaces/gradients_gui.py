@@ -37,6 +37,14 @@ def new_kernel(kernel_name):
     return converter
 
 
+def new_threshold(threshold_name):
+    def converter(val):
+        params[threshold_name] = val
+        update_all()
+
+    return converter
+
+
 def update_all():
     gradx = abs_sobel_thresh(image,
                              orient='x',
@@ -67,6 +75,11 @@ def update_all():
 
 def create_kernel_track_bar(window_name, trackbar_name, kernel_name):
     cv2.createTrackbar(trackbar_name, window_name, odd_to_number(params[kernel_name]), 15, new_kernel(kernel_name))
+
+
+def create_threshold_track_bar(window_name, trackbar_name, threshold_name):
+    cv2.createTrackbar(trackbar_name, window_name, params[threshold_name], 255,
+                       new_threshold(threshold_name))
 
 
 if __name__ == '__main__':
