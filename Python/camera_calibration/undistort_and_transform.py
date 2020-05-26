@@ -35,10 +35,33 @@ def corners_unwarp(img, nx, ny, mtx, dist):
     # c) define 4 destination points dst = np.float32([[,],[,],[,],[,]])
     # d) use cv2.getPerspectiveTransform() to get M, the transform matrix
     # e) use cv2.warpPerspective() to warp your image to a top-down view
-    # delete the next two lines
-    M = None
-    warped = np.copy(img)
-    return warped, M
+
+    undistorted = cv2.undistort(img, mtx, dist, None, mtx)
+    gray = cv2.cvtColor(undistorted, cv2.COLOR_BGR2GRAY)
+
+    grid_size = (8, 6)
+    ret, corners = cv2.findChessboardCorners(gray, grid_size, None)
+
+    if ret:
+        cv2.drawChessboardCorners(undistorted, (nx, ny), corners, ret)
+
+    up_left = 0
+    up_right = grid_size[0] - 1
+    down_left = grid_size[0] * (grid_size[1] - 1)
+    down_right = down_left + grid_size[0] - 1
+
+    source_points = np.array([corners[up_left][0], corners[up_right][0], corners[down_left][0], corners[down_right][0]],
+                             dtype=np.float32)
+
+    offset = 100
+    h, w = gray.shape
+
+    dist_points = np.array([[offset, offset], [w - offset, offset], [offset, h - offset], [w - offset, h - offset]], dtype=np.float32)
+
+    M = cv2.getPerspectiveTransform(source_points, dist_points)
+    perspective = cv2.warpPerspective(undistorted, M, (w, h), flags=cv2.INTER_LINEAR)
+
+    return perspective, M
 
 
 top_down, perspective_M = corners_unwarp(img, nx, ny, mtx, dist)
@@ -49,3 +72,4 @@ ax1.set_title('Original Image', fontsize=50)
 ax2.imshow(top_down)
 ax2.set_title('Undistorted and Warped Image', fontsize=50)
 plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+plt.show()
