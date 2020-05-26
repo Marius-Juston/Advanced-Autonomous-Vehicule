@@ -49,7 +49,7 @@ def convert_to_image(mask):
 image = cv2.imread('signs_vehicles_xygrad.png')
 
 # Choose a Sobel kernel size
-ksize = 3  # Choose a larger odd number to smooth gradient measurements
+ksize = 13  # Choose a larger odd number to smooth gradient measurements
 
 # Apply each of the thresholding functions
 gradx = abs_sobel_thresh(image, orient='x', sobel_kernel=ksize, thresh=(20, 100))
