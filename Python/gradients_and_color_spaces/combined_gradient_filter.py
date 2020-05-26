@@ -48,7 +48,7 @@ grady = abs_sobel_thresh(image, orient='y', sobel_kernel=ksize, thresh=(0, 255))
 
 
 cv2.imshow('Gradx', convert_to_image(gradx))
-cv2.imshow('Grady', convert_to_image(gradx))
+cv2.imshow('Grady', convert_to_image(grady))
 # cv2.imshow('Magnitude', mag_binary)
 # cv2.imshow('Direction', dir_binary)
 
