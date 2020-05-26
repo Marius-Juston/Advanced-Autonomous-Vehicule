@@ -38,7 +38,7 @@ def dir_threshold(image, sobel_kernel=3, thresh=(0, np.pi / 2)):
 
 
 def combine(gradx, grady, magnitude, direction):
-    return (gradx & grady) & (magnitude & direction)
+    return (gradx & grady) | (magnitude & direction)
 
 
 def convert_to_image(mask):

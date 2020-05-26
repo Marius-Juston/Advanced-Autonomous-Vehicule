@@ -109,6 +109,7 @@ def create_dir_threshold_track_bar(window_name, trackbar_name, threshold_name):
 
 if __name__ == '__main__':
     image = cv2.imread('signs_vehicles_xygrad.png')
+    # image = cv2.imread(r'C:\Users\mariu\Documents\GitHub\CarND-LaneLines-P1\test_images\solidYellowCurve.jpg')
 
     settings_windows = 'Settings'
 
