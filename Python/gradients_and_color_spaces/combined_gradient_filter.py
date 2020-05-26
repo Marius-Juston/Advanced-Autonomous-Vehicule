@@ -48,15 +48,15 @@ ksize = 3  # Choose a larger odd number to smooth gradient measurements
 
 # Apply each of the thresholding functions
 gradx = abs_sobel_thresh(image, orient='x', sobel_kernel=ksize, thresh=(20, 100))
-# mag_binary = mag_thresh(image, sobel_kernel=ksize, mag_thresh=(0, 255))
 # dir_binary = dir_threshold(image, sobel_kernel=ksize, thresh=(0, np.pi / 2))
 grady = abs_sobel_thresh(image, orient='y', sobel_kernel=ksize, thresh=(30, 75))
+mag_binary = mag_thresh(image, sobel_kernel=ksize, mag_thresh=(30, 100))
 
 
 cv2.imshow('Gradx', convert_to_image(gradx))
 cv2.imshow('Grady', convert_to_image(grady))
-# cv2.imshow('Magnitude', mag_binary)
 # cv2.imshow('Direction', dir_binary)
+cv2.imshow('Magnitude', convert_to_image(mag_binary))
 
 cv2.waitKey()
 cv2.destroyAllWindows()
