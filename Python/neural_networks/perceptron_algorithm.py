@@ -71,6 +71,4 @@ if __name__ == '__main__':
 
     boundaries = trainPerceptronAlgorithm(X, Y)
 
-    plt.
-
     plt.show()
