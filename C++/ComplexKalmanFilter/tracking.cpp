@@ -86,7 +86,6 @@ void Tracking::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
             dt_third * noise_ax, 0, dt_square * noise_ax, 0,
             0, dt_third * noise_ay, 0, dt_square * noise_ay;
 
-    // TODO: YOUR CODE HERE
     // 1. Modify the F matrix so that the time is integrated
     // 2. Set the process covariance matrix Q
     // 3. Call the Kalman Filter predict() function
