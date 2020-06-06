@@ -7,3 +7,4 @@ INCLUDE_DIRECTORIES("libraries/eigen3/Eigen")
 
 add_subdirectory(KalmanFilter)
 add_subdirectory(ComplexKalmanFilter)
+add_subdirectory(CalculateJacobian)
