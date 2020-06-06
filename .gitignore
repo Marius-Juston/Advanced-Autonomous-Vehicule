@@ -14,3 +14,5 @@ Python/.idea/other.xml
 
 # CMake
 cmake-build-*/
+
+C++/libraries/
