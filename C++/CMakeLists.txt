@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 INCLUDE_DIRECTORIES("libraries/eigen3/Eigen")
 
 add_subdirectory(KalmanFilter)
+add_subdirectory(ComplexKalmanFilter)
