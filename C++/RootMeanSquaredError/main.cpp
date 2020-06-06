@@ -56,7 +56,7 @@ VectorXd CalculateRMSE(const vector<VectorXd> &estimations,
         return rmse;
     }
 
-    for (int i = 0; i < estimations.size(); ++i) {
+    for (unsigned int i = 0; i < estimations.size(); ++i) {
         rmse += (VectorXd) (estimations[i] - ground_truth[i]).array().square();
     }
 
