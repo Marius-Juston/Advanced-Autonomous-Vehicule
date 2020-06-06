@@ -40,6 +40,8 @@ Tracking::Tracking() {
             0, 0, 1, 0,
             0, 0, 0, 1;
 
+    kf_.Q_ = MatrixXd(4, 4);
+
     // set the acceleration noise components
     noise_ax = 5;
     noise_ay = 5;
@@ -67,8 +69,22 @@ void Tracking::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
     // compute the time elapsed between the current and previous measurements
     // dt - expressed in seconds
-    float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+    double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
     previous_timestamp_ = measurement_pack.timestamp_;
+
+    kf_.F_ << 1, 0, dt, 0,
+            0, 1, 0, dt,
+            0, 0, 1, 0,
+            0, 0, 0, 1;
+
+    double dt_fourth = (dt * dt * dt * dt) / 4.0;
+    double dt_third = (dt * dt * dt) / 2.0;
+    double dt_square = (dt * dt);
+
+    kf_.Q_ << dt_fourth * noise_ax, 0, dt_third * noise_ax, 0,
+            0, dt_fourth * noise_ay, 0, dt_third * noise_ay,
+            dt_third * noise_ax, 0, dt_square * noise_ax, 0,
+            0, dt_third * noise_ay, 0, dt_square * noise_ay;
 
     // TODO: YOUR CODE HERE
     // 1. Modify the F matrix so that the time is integrated
@@ -76,6 +92,9 @@ void Tracking::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // 3. Call the Kalman Filter predict() function
     // 4. Call the Kalman Filter update() function
     //      with the most recent raw measurements_
+    kf_.Predict();
+    kf_.Update(measurement_pack.raw_measurements_);
+
 
     cout << "x_= " << kf_.x_ << endl;
     cout << "P_= " << kf_.P_ << endl;
