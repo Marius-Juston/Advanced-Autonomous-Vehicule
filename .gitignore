@@ -11,3 +11,6 @@
 
 *.pyc
 Python/.idea/other.xml
+
+# CMake
+cmake-build-*/
