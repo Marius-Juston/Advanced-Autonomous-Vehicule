@@ -3,4 +3,4 @@
 #
 cmake_minimum_required(VERSION 3.8)
 
-add_executable(ComplexKalmanFilter "main.cpp" measurement_package.h tracking.h kalman_filter.h)
+add_executable(ComplexKalmanFilter "main.cpp" measurement_package.h tracking.cpp kalman_filter.cpp)
