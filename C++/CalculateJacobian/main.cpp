@@ -35,9 +35,11 @@ MatrixXd CalculateJacobian(const VectorXd &x_state) {
     float vx = x_state(2);
     float vy = x_state(3);
 
-    // TODO: YOUR CODE HERE
-
     // check division by zero
+    if (px == 0 && py == 0) {
+        cout << "CalculateJacobian() - Error - Division by Zero" << endl;
+        return Hj;
+    }
 
     // compute the Jacobian matrix
 
