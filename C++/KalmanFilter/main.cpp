@@ -77,9 +77,8 @@ void filter(VectorXd &x, MatrixXd &P) {
     MatrixXd K;
     MatrixXd y;
 
-    for (unsigned int n = 0; n < measurements.size(); ++n) {
+    for (const auto& z : measurements) {
 
-        VectorXd z = measurements[n];
 
 //        We start with the measurement step here because we currently do not have a position
         // KF Measurement update step
