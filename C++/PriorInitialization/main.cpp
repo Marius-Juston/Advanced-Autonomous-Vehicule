@@ -21,10 +21,9 @@ int main() {
   vector<float> priors = initialize_priors(map_size, landmark_positions,
                                            position_stdev);
 
-  // print values to stdout 
-  for (int p = 0; p < priors.size(); ++p) {
-    std::cout << priors[p] << std::endl;
-  }
+  for (float &prior : priors)
+    std::cout << prior << ' ';
+  std::cout << std::endl;
 
   return 0;
 }
