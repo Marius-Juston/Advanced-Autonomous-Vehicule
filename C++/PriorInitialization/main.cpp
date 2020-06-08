@@ -28,7 +28,6 @@ int main() {
   return 0;
 }
 
-// TODO: Complete the initialize_priors function
 vector<float> initialize_priors(int map_size, vector<float> landmark_positions,
                                 float position_stdev) {
 
@@ -37,8 +36,27 @@ vector<float> initialize_priors(int map_size, vector<float> landmark_positions,
   // set all priors to 0.0
   vector<float> priors(map_size, 0.0);
 
-  // TODO: YOUR CODE HERE
+  float sum = 0;
+  float initial_prior = 1.0;
 
+  for (auto landmark: landmark_positions) {
+    for (int position = landmark - position_stdev; position <= (landmark + position_stdev); ++position) {
+      if (position >= 0 && position < map_size) {
+        if (priors[position] != initial_prior) {
+          priors[position] = initial_prior;
+          sum += initial_prior;
+        }
+      }
+    }
+  }
+
+  for (auto landmark: landmark_positions) {
+    for (int position = landmark - position_stdev; position <= (landmark + position_stdev); ++position) {
+      if (position >= 0 && position < map_size) {
+        priors[position] = initial_prior / sum;
+      }
+    }
+  }
 
   return priors;
 }
