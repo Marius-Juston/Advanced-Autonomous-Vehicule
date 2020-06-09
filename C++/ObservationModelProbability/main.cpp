@@ -50,7 +50,6 @@ int main() {
   return 0;
 }
 
-// TODO: Complete the observation model function
 // calculates likelihood prob term based on landmark proximity
 float observation_model(vector<float> landmark_positions,
                         vector<float> observations, vector<float> pseudo_ranges,

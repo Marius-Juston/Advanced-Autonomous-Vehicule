@@ -54,7 +54,7 @@ int main() {
                                     {1}, {0}, {}, {}, {}};
 
   /**
-   * TODO: initialize priors
+   * initialize priors
    */
   vector<float> priors = initialize_priors(map_size, landmark_positions, control_stdev);
 
@@ -90,27 +90,27 @@ int main() {
 
     // step through each pseudo position x (i)
     for (unsigned int i = 0; i < map_size; ++i) {
-      float pseudo_position = float(i);
+      auto pseudo_position = float(i);
 
       /**
-       * TODO: get the motion model probability for each x position
+       * get the motion model probability for each x position
        */
       float motion_prob = motion_model(pseudo_position, movement_per_timestep, priors, map_size, control_stdev);
 
 
       /**
-       * TODO: get pseudo ranges
+       * get pseudo ranges
        */
        vector<float> ranges = pseudo_range_estimator(landmark_positions, pseudo_position);
 
       /**
-       * TODO: get observation probability
+       * get observation probability
        */
        float observation_prob = observation_model(landmark_positions, observations, ranges, distance_max, observation_stdev);
 
 
       /**
-       * TODO: calculate the ith posterior and pass to posteriors vector
+       * calculate the ith posterior and pass to posteriors vector
        */
        posteriors[i] = observation_prob * motion_prob;
 
@@ -127,7 +127,7 @@ int main() {
 //    }
 
     /**
-     * TODO: normalize posteriors (see helpers.h for a helper function)
+     * normalize posteriors (see helpers.h for a helper function)
      */
      posteriors = Helpers::normalize_vector(posteriors);
 
@@ -139,7 +139,7 @@ int main() {
     //cout << "----------NORMALIZED---------------" << endl;
 
     /**
-     * TODO: update priors
+     * update priors
      */
      priors = posteriors;
 

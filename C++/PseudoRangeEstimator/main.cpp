@@ -41,7 +41,6 @@ int main() {
   return 0;
 }
 
-// TODO: Complete pseudo range estimator function
 vector<float> pseudo_range_estimator(vector<float> landmark_positions,
                                      float pseudo_position) {
   // define pseudo observation vector
