@@ -53,7 +53,7 @@ float motion_model(float pseudo_position, float movement, vector<float> priors,
   float position_prob = 0.0f;
 
   for (float next_pos = 0; next_pos < map_size; ++next_pos) {
-    float delta_x = pseudo_position-next_pos;
+    float delta_x = pseudo_position - next_pos;
 
     float transition_prob = Helpers::normpdf(delta_x, movement, control_stdev);
     position_prob += transition_prob * priors[next_pos];

@@ -27,74 +27,72 @@ vector<VectorXd> measurements;
 
 void filter(VectorXd &x, MatrixXd &P);
 
-
 int main() {
-    /**
-     * Code used as example to work with Eigen matrices
-     */
-    // design the KF with 1D motion
-    x = VectorXd(2);
-    x << 0, 0;
+  /**
+   * Code used as example to work with Eigen matrices
+   */
+  // design the KF with 1D motion
+  x = VectorXd(2);
+  x << 0, 0;
 
-    P = MatrixXd(2, 2);
-    P << 1000, 0, 0, 1000;
+  P = MatrixXd(2, 2);
+  P << 1000, 0, 0, 1000;
 
-    u = VectorXd(2);
-    u << 0, 0;
+  u = VectorXd(2);
+  u << 0, 0;
 
-    F = MatrixXd(2, 2);
-    F << 1, 1, 0, 1;
+  F = MatrixXd(2, 2);
+  F << 1, 1, 0, 1;
 
-    H = MatrixXd(1, 2);
-    H << 1, 0;
+  H = MatrixXd(1, 2);
+  H << 1, 0;
 
-    R = MatrixXd(1, 1);
-    R << 1;
+  R = MatrixXd(1, 1);
+  R << 1;
 
-    I = MatrixXd::Identity(2, 2);
+  I = MatrixXd::Identity(2, 2);
 
-    Q = MatrixXd(2, 2);
-    Q << 0, 0, 0, 0;
+  Q = MatrixXd(2, 2);
+  Q << 0, 0, 0, 0;
 
-    // create a list of measurements
-    VectorXd single_meas(1);
-    single_meas << 1;
-    measurements.push_back(single_meas);
-    single_meas << 2;
-    measurements.push_back(single_meas);
-    single_meas << 3;
-    measurements.push_back(single_meas);
+  // create a list of measurements
+  VectorXd single_meas(1);
+  single_meas << 1;
+  measurements.push_back(single_meas);
+  single_meas << 2;
+  measurements.push_back(single_meas);
+  single_meas << 3;
+  measurements.push_back(single_meas);
 
-    // call Kalman filter algorithm
-    filter(x, P);
+  // call Kalman filter algorithm
+  filter(x, P);
 
-    return 0;
+  return 0;
 }
 
-
 void filter(VectorXd &x, MatrixXd &P) {
-    MatrixXd S;
-    MatrixXd K;
-    MatrixXd y;
+  MatrixXd S;
+  MatrixXd K;
+  MatrixXd y;
 
-    for (const auto& z : measurements) {
+  for (const auto &z : measurements) {
 
 
 //        We start with the measurement step here because we currently do not have a position
-        // KF Measurement update step
-        y = z - H * x;
-        S = R + H * P * H.transpose();
-        K = P * H.transpose() * S.inverse();
+    // KF Measurement update step
+    y = z - H * x;
+    S = R + H * P * H.transpose();
+    K = P * H.transpose() * S.inverse();
 
-        // new state
-        x = x + (K * y);
-        P = (I - K * H) * P;
+    // new state
+    x = x + (K * y);
+    P = (I - K * H) * P;
 
-        // KF Prediction step
-        x = F * x + u;
-        P = F * P * F.transpose() + Q;
+    // KF Prediction step
+    x = F * x + u;
+    P = F * P * F.transpose() + Q;
 
-        cout << "x=" << endl << x << endl;
-        cout << "P=" << endl << P << endl;
-    }
+    cout << "x=" << endl << x << endl;
+    cout << "P=" << endl << P << endl;
+  }
 }
