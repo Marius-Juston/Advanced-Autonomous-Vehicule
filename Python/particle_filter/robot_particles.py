@@ -6,5 +6,7 @@ if __name__ == '__main__':
     turn = .1
     move = 5
 
-    particles = [robot().move(turn, move) for _ in range(N)]
+    particles = [robot() for _ in range(N)]
+    print(particles[:10])
+    particles = [r.move(turn, move) for r in particles]
     print(particles[:10])
