@@ -11,9 +11,7 @@ vector<float> pseudo_range_estimator(vector<float> landmark_positions,
                                      float pseudo_position);
 
 // observation model: calculate likelihood prob term based on landmark proximity
-float observation_model(vector<float> landmark_positions,
-                        vector<float> observations, vector<float> pseudo_ranges,
-                        float distance_max, float observation_stdev);
+float observation_model(vector<float> observations, vector<float> pseudo_ranges, float observation_stdev);
 
 int main() {
   // set observation standard deviation:
@@ -40,8 +38,8 @@ int main() {
                                                          pseudo_position);
 
     //get observation probability
-    float observation_prob = observation_model(landmark_positions, observations,
-                                               pseudo_ranges, distance_max,
+    float observation_prob = observation_model(observations,
+                                               pseudo_ranges,
                                                observation_stdev);
     //print to stdout
     std::cout << observation_prob << std::endl;
@@ -51,9 +49,7 @@ int main() {
 }
 
 // calculates likelihood prob term based on landmark proximity
-float observation_model(vector<float> landmark_positions,
-                        vector<float> observations, vector<float> pseudo_ranges,
-                        float distance_max, float observation_stdev) {
+float observation_model(vector<float> observations, vector<float> pseudo_ranges, float observation_stdev) {
 
   // initialize observation probability
   float distance_prob = 1.0f;
