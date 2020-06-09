@@ -99,7 +99,7 @@ int main() {
       /**
        * get pseudo ranges
        */
-       vector<float> ranges = pseudo_range_estimator(landmark_positions, pseudo_position);
+      vector<float> ranges = pseudo_range_estimator(landmark_positions, pseudo_position);
 
       /**
        * get observation probability
@@ -110,7 +110,7 @@ int main() {
       /**
        * calculate the ith posterior and pass to posteriors vector
        */
-       posteriors[i] = observation_prob * motion_prob;
+      posteriors[i] = observation_prob * motion_prob;
 
 
       // UNCOMMENT TO SEE THIS STEP OF THE FILTER
@@ -127,7 +127,7 @@ int main() {
     /**
      * normalize posteriors (see helpers.h for a helper function)
      */
-     posteriors = Helpers::normalize_vector(posteriors);
+    posteriors = Helpers::normalize_vector(posteriors);
 
 
 //     print to stdout
@@ -139,7 +139,7 @@ int main() {
     /**
      * update priors
      */
-     priors = posteriors;
+    priors = posteriors;
 
 
     // UNCOMMENT TO SEE THIS STEP OF THE FILTER
