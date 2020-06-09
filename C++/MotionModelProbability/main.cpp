@@ -46,15 +46,18 @@ int main() {
   return 0;
 }
 
-// TODO: implement the motion model: calculates prob of being at 
 // an estimated position at time t
 float motion_model(float pseudo_position, float movement, vector<float> priors,
                    int map_size, int control_stdev) {
   // initialize probability
   float position_prob = 0.0f;
 
-  // YOUR CODE HERE
+  for (float next_pos = 0; next_pos < map_size; ++next_pos) {
+    float delta_x = pseudo_position-next_pos;
 
+    float transition_prob = Helpers::normpdf(delta_x, movement, control_stdev);
+    position_prob += transition_prob * priors[next_pos];
+  }
 
   return position_prob;
 }
