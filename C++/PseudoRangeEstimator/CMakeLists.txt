@@ -3,4 +3,4 @@
 #
 cmake_minimum_required(VERSION 3.8)
 
-add_executable(PseudoRangeEsitimator "main.cpp" helpers.h)
+add_executable(PseudoRangeEstimator "main.cpp" helpers.h)
