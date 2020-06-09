@@ -48,11 +48,13 @@ vector<float> pseudo_range_estimator(vector<float> landmark_positions,
   vector<float> pseudo_ranges;
 
   // loop over number of landmarks and estimate pseudo ranges
-  // YOUR CODE HERE
-
+  for (float landmark_position : landmark_positions) {
+    if (landmark_position > pseudo_position) {
+      pseudo_ranges.push_back(landmark_position - pseudo_position);
+    }
+  }
 
   // sort pseudo range vector
-  // YOUR CODE HERE
 
   return pseudo_ranges;
 }
