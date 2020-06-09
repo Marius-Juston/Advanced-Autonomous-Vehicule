@@ -5,6 +5,9 @@
     <libraryRoots>
       <file path="$PROJECT_DIR$/libraries" />
     </libraryRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/libraries/eigen3" />
+    </excludeRoots>
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
