@@ -56,13 +56,15 @@ int main() {
   /**
    * TODO: initialize priors
    */
+  vector<float> priors = initialize_priors(map_size, landmark_positions, control_stdev);
 
 
-  // UNCOMMENT TO SEE THIS STEP OF THE FILTER
-  //cout << "-----------PRIORS INIT--------------" << endl;
-  //for (int p = 0; p < priors.size(); ++p){
-  //  cout << priors[p] << endl;
-  //}
+//   UNCOMMENT TO SEE THIS STEP OF THE FILTER
+  cout << "-----------PRIORS INIT--------------" << endl;
+  for (int p = 0; p < priors.size(); ++p) {
+    cout << priors[p] << endl;
+  }
+  cout << "-----------PRIORS INIT END--------------" << endl;
 
   // initialize posteriors
   vector<float> posteriors(map_size, 0.0);
@@ -76,9 +78,9 @@ int main() {
   // cycle through time steps
   for (int t = 0; t < time_steps; ++t) {
     // UNCOMMENT TO SEE THIS STEP OF THE FILTER
-    //cout << "---------------TIME STEP---------------" << endl;
-    //cout << "t = " << t << endl;
-    //cout << "-----Motion----------OBS----------------PRODUCT--" << endl;
+//    cout << "---------------TIME STEP---------------" << endl;
+//    cout << "t = " << t << endl;
+//    cout << "-----Motion----------OBS----------------PRODUCT--" << endl;
 
     if (!sensor_obs[t].empty()) {
       observations = sensor_obs[t];
@@ -93,41 +95,45 @@ int main() {
       /**
        * TODO: get the motion model probability for each x position
        */
+      float motion_prob = motion_model(pseudo_position, movement_per_timestep, priors, map_size, control_stdev);
 
 
       /**
        * TODO: get pseudo ranges
        */
-
+       vector<float> ranges = pseudo_range_estimator(landmark_positions, pseudo_position);
 
       /**
        * TODO: get observation probability
        */
+       float observation_prob = observation_model(landmark_positions, observations, ranges, distance_max, observation_stdev);
 
 
       /**
        * TODO: calculate the ith posterior and pass to posteriors vector
        */
+       posteriors[i] = observation_prob * motion_prob;
 
 
       // UNCOMMENT TO SEE THIS STEP OF THE FILTER
-      //cout << motion_prob << "\t" << observation_prob << "\t"
-      //     << "\t"  << motion_prob * observation_prob << endl;
+//      cout << motion_prob << "\t" << observation_prob << "\t"
+//           << "\t"  << motion_prob * observation_prob << endl;
     }
 
-    // UNCOMMENT TO SEE THIS STEP OF THE FILTER
-    //cout << "----------RAW---------------" << endl;
-    //for (int p = 0; p < posteriors.size(); ++p) {
-    //  cout << posteriors[p] << endl;
-    //}
+//     UNCOMMENT TO SEE THIS STEP OF THE FILTER
+//    cout << "----------RAW---------------" << endl;
+//    for (int p = 0; p < posteriors.size(); ++p) {
+//      cout << posteriors[p] << endl;
+//    }
 
     /**
      * TODO: normalize posteriors (see helpers.h for a helper function)
      */
+     posteriors = Helpers::normalize_vector(posteriors);
 
 
-    // print to stdout
-    //cout << posteriors[t] <<  "\t" << priors[t] << endl;
+//     print to stdout
+//    cout << posteriors[t] <<  "\t" << priors[t] << endl;
 
     // UNCOMMENT TO SEE THIS STEP OF THE FILTER
     //cout << "----------NORMALIZED---------------" << endl;
@@ -135,6 +141,7 @@ int main() {
     /**
      * TODO: update priors
      */
+     priors = posteriors;
 
 
     // UNCOMMENT TO SEE THIS STEP OF THE FILTER
