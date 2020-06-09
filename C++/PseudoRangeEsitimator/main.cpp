@@ -25,14 +25,14 @@ vector<float> pseudo_range_estimator(vector<float> landmark_positions,
 int main() {
   // step through each pseudo position x (i)
   for (int i = 0; i < map_size; ++i) {
-    float pseudo_position = float(i);
+    auto pseudo_position = float(i);
     // get pseudo ranges
     vector<float> pseudo_ranges = pseudo_range_estimator(landmark_positions,
                                                          pseudo_position);
     // print to stdout
-    if (pseudo_ranges.size() > 0) {
-      for (int s = 0; s < pseudo_ranges.size(); ++s) {
-        std::cout << "x: " << i << "\t" << pseudo_ranges[s] << std::endl;
+    if (!pseudo_ranges.empty()) {
+      for (float pseudo_range : pseudo_ranges) {
+        std::cout << "x: " << i << "\t" << pseudo_range << std::endl;
       }
       std::cout << "-----------------------" << std::endl;
     }
