@@ -55,9 +55,29 @@ int main() {
 float observation_model(vector<float> landmark_positions,
                         vector<float> observations, vector<float> pseudo_ranges,
                         float distance_max, float observation_stdev) {
-  float distance_prob;
-  // YOUR CODE HERE
 
+  // initialize observation probability
+  float distance_prob = 1.0f;
+
+  // run over current observation vector
+  for (float observation : observations) {
+    // define min distance
+    float pseudo_range_min;
+
+    // check, if distance vector exists
+    if (!pseudo_ranges.empty()) {
+      // set min distance
+      pseudo_range_min = pseudo_ranges[0];
+      // remove this entry from pseudo_ranges-vector
+      pseudo_ranges.erase(pseudo_ranges.begin());
+    } else {  // no or negative distances: set min distance to a large number
+      pseudo_range_min = std::numeric_limits<const float>::infinity();
+    }
+
+    // estimate the probability for observation model, this is our likelihood
+    distance_prob *= Helpers::normpdf(observation, pseudo_range_min,
+                                      observation_stdev);
+  }
 
   return distance_prob;
 }
