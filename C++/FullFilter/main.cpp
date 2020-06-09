@@ -172,13 +172,14 @@ float observation_model(vector<float> observations, vector<float> pseudo_ranges,
       pseudo_range_min = pseudo_ranges[0];
       // remove this entry from pseudo_ranges-vector
       pseudo_ranges.erase(pseudo_ranges.begin());
-    } else {  // no or negative distances: set min distance to a large number
-      pseudo_range_min = std::numeric_limits<const float>::infinity();
-    }
 
-    // estimate the probability for observation model, this is our likelihood
-    distance_prob *= Helpers::normpdf(observation, pseudo_range_min,
-                                      observation_stdev);
+      // estimate the probability for observation model, this is our likelihood
+      distance_prob *= Helpers::normpdf(observation, pseudo_range_min,
+                                        observation_stdev);
+    } else {  // no or negative distances: set min distance to a large number
+      distance_prob = 0;
+      break;
+    }
   }
 
   return distance_prob;
