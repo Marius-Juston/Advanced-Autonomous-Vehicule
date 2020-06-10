@@ -66,6 +66,6 @@ def optimum_policy(grid, goal, cost):
     return policy
 
 
-path, v = optimum_policy(grid, goal, cost)
+path = optimum_policy(grid, goal, cost)
 pprint(v)
 pprint(path)
