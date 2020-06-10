@@ -38,7 +38,6 @@ def optimum_policy(grid, goal, cost):
     # insert code below
     # ----------------------------------------
     policy = [[' ' for _ in range(len(grid[0]))] for _ in range(len(grid))]
-    value = [[-1 for _ in range(len(grid[0]))] for _ in range(len(grid))]
 
     searched = set()
 
@@ -50,25 +49,21 @@ def optimum_policy(grid, goal, cost):
         open.remove(prev_value)
         c, x, y = prev_value
         searched.add((x, y))
-        value[x][y] = c
 
         for (d_x, d_y) in delta:
             x_n = x + d_x
             y_n = y + d_y
 
-            if (x_n, y_n) not in searched and 0 <= x_n < len(grid) and 0 <= y_n < len(grid[0]) and grid[x_n][
-                y_n] == 0:
+            if (x_n, y_n) not in searched and 0 <= x_n < len(grid) and 0 <= y_n < len(grid[0]) and grid[x_n][y_n] == 0:
                 c2 = c + cost
                 open.add((c2, x_n, y_n))
 
                 position = (1 + d_x) * (d_x != 0) + (2 + d_y) * (d_y != 0)
-                print(d_x, d_y, position)
-
                 policy[x_n][y_n] = delta_name[position]
 
     # make sure your function returns a grid of values as
     # demonstrated in the previous video.
-    return policy, value
+    return policy
 
 
 path, v = optimum_policy(grid, goal, cost)
