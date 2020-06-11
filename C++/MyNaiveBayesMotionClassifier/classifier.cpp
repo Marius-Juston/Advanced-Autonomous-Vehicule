@@ -58,9 +58,14 @@ void GNB::train(const vector<vector<double>> &data,
   ArrayXd x;
   for (int i = 0; i < data.size(); ++i) {
     data_point = data[i];
+    x = ArrayXd::Map(data_point.data(), data_point.size());
     mean = classes[labels[i]].means;
-    classes[labels[i]].std += ArrayXd::Map(data_point.data(), data_point.size()) - classes[labels[i]].std;
-    ++classes[labels[i]].size;
+    classes[labels[i]].std += (x - mean) * (x - mean);
+  }
+
+  for (auto &item : classes) {
+    item.second.std = (item.second.std / item.second.size).sqrt();
+  }
   }
 }
 
