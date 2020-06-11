@@ -123,5 +123,10 @@ string GNB::predict(const vector<double> &sample) {
     }
   }
 
+//  for (const auto &item : classes) {
+//    std::cout << item.first << ": " << item.second.conditional_probability << std::endl;
+//  }
+//  std::cout << std::endl;
+
   return max_label;
 }
