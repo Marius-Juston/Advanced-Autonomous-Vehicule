@@ -1,5 +1,5 @@
 #include "classifier.h"
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <vector>
 #include <iostream>
