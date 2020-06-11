@@ -114,8 +114,8 @@ string GNB::predict(const vector<double> &sample) {
     ArrayXd top = Eigen::exp(-(sample_array - means).pow(2) / (2 * std));
     ArrayXd bottom = 1. / (2 * M_PI * std).sqrt();
 
-    double result = (top / bottom).prod() * classes[label].prior;
     conditional_probabilities[label] = result;
+    double result = (top * bottom).prod() * classes[label].prior;
 
     if (result > max_value) {
       max_value = result;
