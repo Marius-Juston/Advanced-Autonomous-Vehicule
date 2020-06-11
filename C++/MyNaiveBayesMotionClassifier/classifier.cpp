@@ -65,6 +65,7 @@ void GNB::train(const vector<vector<double>> &data,
 
   for (auto &item : classes) {
     item.second.std = (item.second.std / item.second.size).sqrt();
+    item.second.prior = (double) item.second.size / labels.size();
   }
 
   for (const auto &item : classes) {
