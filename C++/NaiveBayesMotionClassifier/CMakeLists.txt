@@ -3,7 +3,7 @@
 #
 cmake_minimum_required(VERSION 3.8)
 
-add_executable(MyNaiveBayesMotionClassifier "main.cpp" classifier.cpp classifier.h)
+add_executable(NaiveBayesMotionClassifier "main.cpp" classifier.cpp classifier.h)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test_labels.txt ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test_states.txt ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
