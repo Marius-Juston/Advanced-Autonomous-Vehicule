@@ -11,7 +11,7 @@ using std::vector;
 // Initializes GNB
 GNB::GNB() {
   /**
-   * TODO: Initialize GNB, if necessary. May depend on your implementation.
+   * Initialize GNB.
    */
   int n_features = 4;
 
@@ -41,7 +41,6 @@ void GNB::train(const vector<vector<double>> &data,
    * @param labels - array of N labels
    *   - Each label is one of "left", "keep", or "right".
    *
-   * TODO: Implement the training function for your classifier.
    */
 
   vector<double> data_point;
@@ -97,7 +96,6 @@ string GNB::predict(const vector<double> &sample) {
    * @output A label representing the best guess of the classifier. Can
    *   be one of "left", "keep" or "right".
    *
-   * TODO: Complete this function to return your classifier's prediction
    */
 
   ArrayXd means;
