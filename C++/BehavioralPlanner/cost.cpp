@@ -13,8 +13,8 @@ using std::vector;
 /**
  * TODO: change weights for cost functions.
  */
-const float REACH_GOAL = 0;
-const float EFFICIENCY = 0;
+const float REACH_GOAL = pow(10, 6);
+const float EFFICIENCY = pow(10, 5);
 
 // Here we have provided two possible suggestions for cost functions, but feel 
 //   free to use your own! The weighted cost over all cost functions is computed
@@ -26,11 +26,11 @@ float goal_distance_cost(const Vehicle &vehicle,
                          const vector<Vehicle> &trajectory,
                          const map<int, vector<Vehicle>> &predictions,
                          map<string, float> &data) {
-  // Cost increases based on distance of intended lane (for planning a lane 
+  // Cost increases based on distance of intended lane (for planning a lane
   //   change) and final lane of trajectory.
-  // Cost of being out of goal lane also becomes larger as vehicle approaches 
+  // Cost of being out of goal lane also becomes larger as vehicle approaches
   //   goal distance.
-  // This function is very similar to what you have already implemented in the 
+  // This function is very similar to what you have already implemented in the
   //   "Implement a Cost Function in C++" quiz.
   float cost;
   float distance = data["distance_to_goal"];
@@ -48,10 +48,10 @@ float inefficiency_cost(const Vehicle &vehicle,
                         const vector<Vehicle> &trajectory,
                         const map<int, vector<Vehicle>> &predictions,
                         map<string, float> &data) {
-  // Cost becomes higher for trajectories with intended lane and final lane 
+  // Cost becomes higher for trajectories with intended lane and final lane
   //   that have traffic slower than vehicle's target speed.
-  // You can use the lane_speed function to determine the speed for a lane. 
-  // This function is very similar to what you have already implemented in 
+  // You can use the lane_speed function to determine the speed for a lane.
+  // This function is very similar to what you have already implemented in
   //   the "Implement a Second Cost Function in C++" quiz.
   float proposed_speed_intended = lane_speed(predictions, data["intended_lane"]);
   if (proposed_speed_intended < 0) {
@@ -70,11 +70,12 @@ float inefficiency_cost(const Vehicle &vehicle,
 }
 
 float lane_speed(const map<int, vector<Vehicle>> &predictions, int lane) {
-  // All non ego vehicles in a lane have the same speed, so to get the speed 
+  // All non ego vehicles in a lane have the same speed, so to get the speed
   //   limit for a lane, we can just find one vehicle in that lane.
-  for (const auto &prediction : predictions) {
-    int key = prediction.first;
-    Vehicle vehicle = prediction.second[0];
+  for (map<int, vector<Vehicle>>::const_iterator it = predictions.begin();
+       it != predictions.end(); ++it) {
+    int key = it->first;
+    Vehicle vehicle = it->second[0];
     if (vehicle.lane == lane && key != -1) {
       return vehicle.v;
     }
@@ -111,21 +112,21 @@ map<string, float> get_helper_data(const Vehicle &vehicle,
                                    const vector<Vehicle> &trajectory,
                                    const map<int, vector<Vehicle>> &predictions) {
   // Generate helper data to use in cost functions:
-  // intended_lane: the current lane +/- 1 if vehicle is planning or 
+  // intended_lane: the current lane +/- 1 if vehicle is planning or
   //   executing a lane change.
   // final_lane: the lane of the vehicle at the end of the trajectory.
   // distance_to_goal: the distance of the vehicle to the goal.
 
-  // Note that intended_lane and final_lane are both included to help 
-  //   differentiate between planning and executing a lane change in the 
+  // Note that intended_lane and final_lane are both included to help
+  //   differentiate between planning and executing a lane change in the
   //   cost functions.
   map<string, float> trajectory_data;
   Vehicle trajectory_last = trajectory[1];
   float intended_lane;
 
-  if (trajectory_last.state == "PLCL") {
+  if (trajectory_last.state.compare("PLCL") == 0) {
     intended_lane = trajectory_last.lane + 1;
-  } else if (trajectory_last.state == "PLCR") {
+  } else if (trajectory_last.state.compare("PLCR") == 0) {
     intended_lane = trajectory_last.lane - 1;
   } else {
     intended_lane = trajectory_last.lane;
