@@ -99,5 +99,29 @@ string GNB::predict(const vector<double> &sample) {
    * TODO: Complete this function to return your classifier's prediction
    */
 
-  return this->possible_labels[1];
+  std::map<std::string, double> conditional_probabilities;
+  ArrayXd means;
+  ArrayXd std;
+  ArrayXd sample_array;
+
+  double max_value = -1;
+  string max_label;
+  for (const std::string &label: possible_labels) {
+    means = classes[label].means;
+    std = classes[label].std.pow(2);
+    sample_array = ArrayXd::Map(sample.data(), sample.size());
+
+    ArrayXd top = Eigen::exp(-(sample_array - means).pow(2) / (2 * std));
+    ArrayXd bottom = 1. / (2 * M_PI * std).sqrt();
+
+    double result = (top / bottom).prod() * classes[label].prior;
+    conditional_probabilities[label] = result;
+
+    if (result > max_value) {
+      max_value = result;
+      max_label = label;
+    }
+  }
+
+  return max_label;
 }
