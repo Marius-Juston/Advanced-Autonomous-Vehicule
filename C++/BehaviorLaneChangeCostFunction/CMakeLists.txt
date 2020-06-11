@@ -3,4 +3,4 @@
 #
 cmake_minimum_required(VERSION 3.8)
 
-add_executable(BehaviorCostFunction "main.cpp" cost.cpp cost.h)
+add_executable(BehaviorLaneChangeCostFunction "main.cpp" cost.cpp cost.h)
