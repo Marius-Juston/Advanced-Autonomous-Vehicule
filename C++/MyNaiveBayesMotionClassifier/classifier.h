@@ -39,6 +39,7 @@ class GNB {
     ArrayXd means;
     ArrayXd std;
     double prior;
+    double conditional_probability;
     int size;
   };
 
