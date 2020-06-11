@@ -72,10 +72,9 @@ float inefficiency_cost(const Vehicle &vehicle,
 float lane_speed(const map<int, vector<Vehicle>> &predictions, int lane) {
   // All non ego vehicles in a lane have the same speed, so to get the speed 
   //   limit for a lane, we can just find one vehicle in that lane.
-  for (map<int, vector<Vehicle>>::const_iterator it = predictions.begin();
-       it != predictions.end(); ++it) {
-    int key = it->first;
-    Vehicle vehicle = it->second[0];
+  for (const auto &prediction : predictions) {
+    int key = prediction.first;
+    Vehicle vehicle = prediction.second[0];
     if (vehicle.lane == lane && key != -1) {
       return vehicle.v;
     }
@@ -124,9 +123,9 @@ map<string, float> get_helper_data(const Vehicle &vehicle,
   Vehicle trajectory_last = trajectory[1];
   float intended_lane;
 
-  if (trajectory_last.state.compare("PLCL") == 0) {
+  if (trajectory_last.state == "PLCL") {
     intended_lane = trajectory_last.lane + 1;
-  } else if (trajectory_last.state.compare("PLCR") == 0) {
+  } else if (trajectory_last.state == "PLCR") {
     intended_lane = trajectory_last.lane - 1;
   } else {
     intended_lane = trajectory_last.lane;

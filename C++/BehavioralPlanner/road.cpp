@@ -52,7 +52,7 @@ void Road::populate_traffic() {
 void Road::advance() {
   map<int, vector<Vehicle> > predictions;
 
-  map<int, Vehicle>::iterator it = this->vehicles.begin();
+  auto it = this->vehicles.begin();
 
   while (it != this->vehicles.end()) {
     int v_id = it->first;
@@ -76,7 +76,7 @@ void Road::advance() {
 }
 
 void Road::add_ego(int lane_num, int s, vector<int> &config_data) {
-  map<int, Vehicle>::iterator it = this->vehicles.begin();
+  auto it = this->vehicles.begin();
 
   while (it != this->vehicles.end()) {
     int v_id = it->first;
@@ -106,20 +106,21 @@ void Road::display(int timestep) {
 
   for (int i = 0; i < this->update_width; ++i) {
     vector<string> road_lane;
+    road_lane.reserve(this->num_lanes);
     for (int ln = 0; ln < this->num_lanes; ++ln) {
-      road_lane.push_back("     ");
+      road_lane.emplace_back("     ");
     }
     road.push_back(road_lane);
   }
 
-  map<int, Vehicle>::iterator it = this->vehicles.begin();
+  auto it = this->vehicles.begin();
 
   while (it != this->vehicles.end()) {
     int v_id = it->first;
     Vehicle v = it->second;
 
     if (s_min <= v.s && v.s < s_max) {
-      string marker = "";
+      string marker;
 
       if (v_id == this->ego_key) {
         marker = this->ego_rep;
