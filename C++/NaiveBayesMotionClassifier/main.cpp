@@ -11,8 +11,8 @@ using std::string;
 using std::vector;
 
 // Helper functions to load .txt files
-vector<vector<double> > Load_State(string file_name);
-vector<string> Load_Label(string file_name);
+vector<vector<double> > Load_State(const string &file_name);
+vector<string> Load_Label(const string &file_name);
 
 int main() {
   vector<vector<double> > X_train = Load_State("./train_states.txt");
@@ -36,7 +36,7 @@ int main() {
   for (int i = 0; i < X_test.size(); ++i) {
     vector<double> coords = X_test[i];
     string predicted = gnb.predict(coords);
-    if (predicted.compare(Y_test[i]) == 0) {
+    if (predicted == Y_test[i]) {
       score += 1;
     }
   }
@@ -48,7 +48,7 @@ int main() {
 }
 
 // Load state from .txt file
-vector<vector<double> > Load_State(string file_name) {
+vector<vector<double> > Load_State(const string &file_name) {
   ifstream in_state_(file_name.c_str(), ifstream::in);
   vector<vector<double >> state_out;
   string line;
@@ -68,7 +68,7 @@ vector<vector<double> > Load_State(string file_name) {
 }
 
 // Load labels from .txt file
-vector<string> Load_Label(string file_name) {
+vector<string> Load_Label(const string &file_name) {
   ifstream in_label_(file_name.c_str(), ifstream::in);
   vector<string> label_out;
   string line;
