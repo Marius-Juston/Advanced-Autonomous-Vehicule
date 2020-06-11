@@ -66,6 +66,23 @@ void GNB::train(const vector<vector<double>> &data,
   for (auto &item : classes) {
     item.second.std = (item.second.std / item.second.size).sqrt();
   }
+
+  for (const auto &item : classes) {
+    std::cout << item.first << std::endl;
+    std::cout << "Means: ";
+
+    for (int i = 0; i < item.second.means.size(); ++i) {
+      std::cout << item.second.means(i) << ", ";
+    }
+    std::cout << std::endl << "Std: ";
+
+    for (int i = 0; i < item.second.std.size(); ++i) {
+      std::cout << item.second.std(i) << ", ";
+    }
+
+    std::cout << std::endl << "Prior: " << item.second.prior << std::endl << "Size: " << item.second.size << std::endl
+              << std::endl;
+
   }
 }
 
