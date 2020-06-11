@@ -33,6 +33,19 @@ class GNB {
   string predict(const vector<double> &sample);
 
   vector<string> possible_labels = {"left", "keep", "right"};
+
+  ArrayXd left_means;
+  ArrayXd left_sds;
+  double left_prior;
+
+  ArrayXd keep_means;
+  ArrayXd keep_sds;
+  double keep_prior;
+
+  ArrayXd right_means;
+  ArrayXd right_sds;
+  double right_prior;
+
 };
 
 #endif  // CLASSIFIER_H
