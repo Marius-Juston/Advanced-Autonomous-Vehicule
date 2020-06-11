@@ -15,10 +15,10 @@ vector<vector<double> > Load_State(string file_name);
 vector<string> Load_Label(string file_name);
 
 int main() {
-  vector< vector<double> > X_train = Load_State("./train_states.txt");
-  vector< vector<double> > X_test  = Load_State("./test_states.txt");
-  vector< string > Y_train = Load_Label("./train_labels.txt");
-  vector< string > Y_test  = Load_Label("./test_labels.txt");
+  vector<vector<double> > X_train = Load_State("./train_states.txt");
+  vector<vector<double> > X_test = Load_State("./test_states.txt");
+  vector<string> Y_train = Load_Label("./train_labels.txt");
+  vector<string> Y_test = Load_Label("./test_labels.txt");
 
   cout << "X_train number of elements " << X_train.size() << endl;
   cout << "X_train element size " << X_train[0].size() << endl;
@@ -42,7 +42,7 @@ int main() {
   }
 
   float fraction_correct = float(score) / Y_test.size();
-  cout << "You got " << (100*fraction_correct) << " correct" << endl;
+  cout << "You got " << (100 * fraction_correct) << " correct" << endl;
 
   return 0;
 }
@@ -50,7 +50,7 @@ int main() {
 // Load state from .txt file
 vector<vector<double> > Load_State(string file_name) {
   ifstream in_state_(file_name.c_str(), ifstream::in);
-  vector< vector<double >> state_out;
+  vector<vector<double >> state_out;
   string line;
 
   while (getline(in_state_, line)) {
@@ -58,7 +58,7 @@ vector<vector<double> > Load_State(string file_name) {
     vector<double> x_coord;
 
     string token;
-    while (getline(iss,token,',')) {
+    while (getline(iss, token, ',')) {
       x_coord.push_back(stod(token));
     }
     state_out.push_back(x_coord);
@@ -70,7 +70,7 @@ vector<vector<double> > Load_State(string file_name) {
 // Load labels from .txt file
 vector<string> Load_Label(string file_name) {
   ifstream in_label_(file_name.c_str(), ifstream::in);
-  vector< string > label_out;
+  vector<string> label_out;
   string line;
   while (getline(in_label_, line)) {
     std::istringstream iss(line);

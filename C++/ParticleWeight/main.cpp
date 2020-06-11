@@ -17,7 +17,8 @@ int main() {
   double landmark_y = 3;
 
   double weight =
-      exp(-(pow(x - landmark_x, 2) / (2 * x_std * x_std) + pow(y - landmark_y, 2) / (2 * y_std * y_std))) / (2 * M_PI * x_std * y_std);
+      exp(-(pow(x - landmark_x, 2) / (2 * x_std * x_std) + pow(y - landmark_y, 2) / (2 * y_std * y_std)))
+          / (2 * M_PI * x_std * y_std);
 
   cout << weight << endl;
 

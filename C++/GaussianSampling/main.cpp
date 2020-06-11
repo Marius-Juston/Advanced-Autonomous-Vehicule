@@ -38,7 +38,7 @@ int main() {
 void printSamples(double gps_x, double gps_y, double theta) {
   std::default_random_engine gen;
   double std_x = 2, std_y = 2, std_theta = .05;  // Standard deviations for x, y, and theta
-  
+
   // This line creates a normal (Gaussian) distribution for x
   normal_distribution<double> dist_x(gps_x, std_x);
   normal_distribution<double> dist_y(gps_y, std_y);
