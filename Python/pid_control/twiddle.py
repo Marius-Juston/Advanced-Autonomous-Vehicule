@@ -1,3 +1,9 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+from pid_control.robot import Robot
+
+
 def make_robot():
     """
     Resets the robot back to the initial position and drift.
@@ -32,22 +38,45 @@ def run(robot, params, n=100, speed=1.0):
 
 # Make this tolerance bigger if you are timing out!
 def twiddle(tol=0.2):
-    # Don't forget to call `make_robot` before every call of `run`!
     p = [0, 0, 0]
+    # dp = [.25, .05, .25]
     dp = [1, 1, 1]
     robot = make_robot()
     x_trajectory, y_trajectory, best_err = run(robot, p)
-    # TODO: twiddle loop here
 
+    it = 0
+    while sum(dp) > tol:
+        print("Iteration {}, best error = {}".format(it, best_err))
+        for i in range(len(p)):
+            p[i] += dp[i]
+            robot = make_robot()
+            x_trajectory, y_trajectory, err = run(robot, p)
+
+            if err < best_err:
+                best_err = err
+                dp[i] *= 1.1
+            else:
+                p[i] -= 2 * dp[i]
+                robot = make_robot()
+                x_trajectory, y_trajectory, err = run(robot, p)
+
+                if err < best_err:
+                    best_err = err
+                    dp[i] *= 1.1
+                else:
+                    p[i] += dp[i]
+                    dp[i] *= 0.9
+        it += 1
     return p, best_err
 
 
 params, err = twiddle()
 print("Final twiddle error = {}".format(err))
+print(f"Final parameters = {params}")
 robot = make_robot()
 x_trajectory, y_trajectory, err = run(robot, params)
 n = len(x_trajectory)
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
-ax1.plot(x_trajectory, y_trajectory, 'g', label='Twiddle PID controller')
-ax1.plot(x_trajectory, np.zeros(n), 'r', label='reference')
+plt.plot(x_trajectory, y_trajectory, 'g', label='Twiddle PID controller')
+plt.plot(x_trajectory, np.zeros(n), 'r', label='reference')
+plt.show()
