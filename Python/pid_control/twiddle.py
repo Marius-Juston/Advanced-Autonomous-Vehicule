@@ -39,8 +39,8 @@ def run(robot, params, n=100, speed=1.0):
 # Make this tolerance bigger if you are timing out!
 def twiddle(tol=0.2):
     p = [0, 0, 0]
-    # dp = [.25, .05, .25]
-    dp = [1, 1, 1]
+    dp = [.25, .05, .25]
+    # dp = [1, 1, 1]
     robot = make_robot()
     x_trajectory, y_trajectory, best_err = run(robot, p)
 
