@@ -10,7 +10,7 @@ robot.set(0, 1, 0)
 def run(robot, tau_p, tau_d, n=100, speed=1.0):
     x_trajectory = []
     y_trajectory = []
-    # TODO: your code here
+
     prev_cte = robot.y
     dt = 1
 

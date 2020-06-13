@@ -16,11 +16,11 @@ X = tf.constant(x)
 
 
 def maxpool(input):
-    # TODO: Set the ksize (filter size) for each dimension (batch_size, height, width, depth)
+    # Set the ksize (filter size) for each dimension (batch_size, height, width, depth)
     ksize = [1, 2, 2, 1]
-    # TODO: Set the stride for each dimension (batch_size, height, width, depth)
+    # Set the stride for each dimension (batch_size, height, width, depth)
     strides = [1, 2, 2, 1]
-    # TODO: set the padding, either 'VALID' or 'SAME'.
+    # set the padding, either 'VALID' or 'SAME'.
     padding = 'VALID'
     # https://www.tensorflow.org/versions/r0.11/api_docs/python/nn.html#max_pool
     return tf.nn.max_pool(input, ksize, strides, padding)
