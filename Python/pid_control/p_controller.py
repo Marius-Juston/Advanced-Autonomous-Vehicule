@@ -25,7 +25,6 @@ def run(robot, tau, n=100, speed=1.0):
 x_trajectory, y_trajectory = run(robot, 0.1)
 n = len(x_trajectory)
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
-ax1.plot(x_trajectory, y_trajectory, 'g', label='P controller')
-ax1.plot(x_trajectory, np.zeros(n), 'r', label='reference')
+plt.plot(x_trajectory, y_trajectory, 'g', label='P controller')
+plt.plot(x_trajectory, np.zeros(n), 'r', label='reference')
 plt.show()
