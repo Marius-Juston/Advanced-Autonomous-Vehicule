@@ -5,8 +5,8 @@ import numpy as np
 
 image = mpimg.imread('bbox-example-image.jpg')
 # image = mpimg.imread('temp-matching-example-2.jpg')
-templist = ['cutout1.jpg', 'cutout2.jpg', 'cutout3.jpg',
-            'cutout4.jpg', 'cutout5.jpg', 'cutout6.jpg']
+templist = ['cutouts/cutout1.jpg', 'cutouts/cutout2.jpg', 'cutouts/cutout3.jpg',
+            'cutouts/cutout4.jpg', 'cutouts/cutout5.jpg', 'cutouts/cutout6.jpg']
 
 
 # Here is your draw_boxes function from the previous exercise
@@ -27,7 +27,7 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
 def find_matches(img, template_list):
     # Make a copy of the image to draw on
     # Define an empty list to take bbox coords
-    bbox_list = []
+
     # Iterate through template list
     # Read in templates one by one
     # Use cv2.matchTemplate() to search the image
@@ -35,6 +35,19 @@ def find_matches(img, template_list):
     # Use cv2.minMaxLoc() to extract the location of the best match
     # Determine bounding box corners for the match
     # Return the list of bounding boxes
+
+    bbox_list = []
+
+    for template in template_list:
+        template = cv2.imread(template)
+        h, w, _ = template.shape
+
+        template_result = cv2.matchTemplate(img, template, cv2.TM_CCOEFF)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(template_result)
+
+        bottom = (max_loc[0] + w, max_loc[1] + h)
+        bbox_list.append((max_loc, bottom))
+
     return bbox_list
 
 
