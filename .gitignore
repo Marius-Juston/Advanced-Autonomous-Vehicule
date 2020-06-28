@@ -16,3 +16,6 @@ Python/.idea/other.xml
 cmake-build-*/
 
 C++/libraries/
+
+vehicules/
+non_vehicules/
