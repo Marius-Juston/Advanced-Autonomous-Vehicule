@@ -2,6 +2,9 @@ import glob
 import os
 
 import cv2
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def data_look(car_list, notcar_list):
@@ -19,10 +22,27 @@ def read_image_folder(image_folder):
 
 
 if __name__ == '__main__':
-    car_list = read_image_folder('vehicules')
-    not_car_list = read_image_folder('non_vehicules')
+    cars = read_image_folder('vehicules')
+    not_cars = read_image_folder('non_vehicules')
 
-    data_info = data_look(car_list, not_car_list)
+    data_info = data_look(cars, not_cars)
 
     print('Your function returned a count of', data_info["n_cars"], ' cars and', data_info["n_notcars"], ' non-cars')
     print('of size: ', data_info["image_shape"], ' and data type:', data_info["data_type"])
+
+    car_ind = np.random.randint(0, len(cars))
+    notcar_ind = np.random.randint(0, len(not_cars))
+
+    # Read in car / not-car images
+    car_image = mpimg.imread(cars[car_ind])
+    notcar_image = mpimg.imread(not_cars[notcar_ind])
+
+    # Plot the examples
+    fig = plt.figure()
+    plt.subplot(121)
+    plt.imshow(car_image)
+    plt.title('Example Car Image')
+    plt.subplot(122)
+    plt.imshow(notcar_image)
+    plt.title('Example Not-car Image')
+    plt.show()
