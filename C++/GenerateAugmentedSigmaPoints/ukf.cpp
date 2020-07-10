@@ -16,12 +16,11 @@ void UKF::Init() {
 
 }
 
-
 /**
  * Programming assignment functions:
  */
 
-void UKF::AugmentedSigmaPoints(MatrixXd* Xsig_out) {
+void UKF::AugmentedSigmaPoints(MatrixXd *Xsig_out) {
 
   // set state dimension
   int n_x = 5;
@@ -40,7 +39,7 @@ void UKF::AugmentedSigmaPoints(MatrixXd* Xsig_out) {
 
   // set example state
   VectorXd x = VectorXd(n_x);
-  x <<   5.7441,
+  x << 5.7441,
       1.3800,
       2.2049,
       0.5015,
@@ -48,11 +47,11 @@ void UKF::AugmentedSigmaPoints(MatrixXd* Xsig_out) {
 
   // create example covariance matrix
   MatrixXd P = MatrixXd(n_x, n_x);
-  P <<     0.0043,   -0.0013,    0.0030,   -0.0022,   -0.0020,
-      -0.0013,    0.0077,    0.0011,    0.0071,    0.0060,
-      0.0030,    0.0011,    0.0054,    0.0007,    0.0008,
-      -0.0022,    0.0071,    0.0007,    0.0098,    0.0100,
-      -0.0020,    0.0060,    0.0008,    0.0100,    0.0123;
+  P << 0.0043, -0.0013, 0.0030, -0.0022, -0.0020,
+      -0.0013, 0.0077, 0.0011, 0.0071, 0.0060,
+      0.0030, 0.0011, 0.0054, 0.0007, 0.0008,
+      -0.0022, 0.0071, 0.0007, 0.0098, 0.0100,
+      -0.0020, 0.0060, 0.0008, 0.0100, 0.0123;
 
   // create augmented mean vector
   VectorXd x_aug = VectorXd(7);
@@ -68,12 +67,37 @@ void UKF::AugmentedSigmaPoints(MatrixXd* Xsig_out) {
    */
 
   // create augmented mean state
+  x_aug.head(n_x) = x;
+  x_aug(5) = 0;
+  x_aug(6) = 0;
+
+  std::cout << x_aug << std::endl;
 
   // create augmented covariance matrix
 
+  MatrixXd Q(2, 2);
+  Q << std_a * std_a, 0,
+      0, std_yawdd * std_yawdd;
+
+  P_aug.setZero();
+  P_aug.topLeftCorner(n_x, n_x) = P;
+  P_aug.bottomRightCorner(2, 2) = Q;
+
+  std::cout << P_aug << std::endl;
+
   // create square root matrix
 
+  MatrixXd sqrtPAug = P_aug.llt().matrixL();
+
   // create augmented sigma points
+
+  for (int i = 0; i < 2 * n_aug + 1; ++i) {
+    Xsig_aug.col(i) = x_aug;
+  }
+
+  MatrixXd sigmaDeviation = sqrt(lambda + n_aug) * sqrtPAug;
+  Xsig_aug.block(0, 1, n_aug, n_aug) += sigmaDeviation;
+  Xsig_aug.block(0, n_aug + 1, n_aug, n_aug) -= sigmaDeviation;
 
   /**
    * Student part end
