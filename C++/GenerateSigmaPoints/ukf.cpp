@@ -3,6 +3,8 @@
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using std::cout;
+using std::endl;
 
 UKF::UKF() {
   Init();
@@ -53,10 +55,17 @@ void UKF::GenerateSigmaPoints(MatrixXd *Xsig_out) {
    * Student part begin
    */
 
-  // your code goes here 
-  // calculate sigma points ...
+  for (int i = 0; i < 2 * n_x + 1; ++i) {
+    Xsig.col(i) = x;
+  }
 
-  // set sigma points as columns of matrix Xsig
+  MatrixXd sigmaDeviation = sqrt(lambda + n_x) * A;
+
+  cout << "Deviation" << endl;
+  cout << sigmaDeviation << endl;
+
+  Xsig.block(0, 1, n_x, n_x) += sigmaDeviation;
+  Xsig.block(0, n_x + 1, n_x, n_x) -= sigmaDeviation;
 
   /**
    * Student part end
